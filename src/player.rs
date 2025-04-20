@@ -28,22 +28,22 @@ impl Player{
         self.livebar.draw(canvas);
     }
 
-    pub fn handle_events(&mut self,e: &sdl3::EventPump){
+    pub fn handle_events(&mut self,e: &sdl3::EventPump, delta: f32){
         
         if (e.keyboard_state().is_scancode_pressed(Scancode::A)
         ||e.keyboard_state().is_scancode_pressed(Scancode::H))
         && self.body.rect.x >0.0{
-            self.body.rect.x -= self.speed;
+            self.body.rect.x -= self.speed*delta;
         }
         if (e.keyboard_state().is_scancode_pressed(Scancode::D)
         ||e.keyboard_state().is_scancode_pressed(Scancode::L))
         && self.body.rect.x < (SCREEN_SIZE_W as f32-self.body.rect.w){
-            self.body.rect.x += self.speed;
+            self.body.rect.x += self.speed*delta;
         }
     }
 
-    pub fn update(&mut self,event_pump: &sdl3::EventPump){
-        self.handle_events(event_pump);
+    pub fn update(&mut self,delta: f32,event_pump: &sdl3::EventPump){
+        self.handle_events(event_pump,delta);
     }
 }
 

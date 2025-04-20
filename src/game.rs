@@ -7,7 +7,7 @@ use sdl3::video::Window;
 use sdl3::EventPump;
 use sdl3::Sdl;
 use sdl3::VideoSubsystem;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 use crate::player::*;
 use crate::config::*;
@@ -19,7 +19,9 @@ pub struct Game{
     pub canvas:Canvas<Window>,
     pub event_pump:EventPump,
     pub player:Player,
-    pub ball:Ball, 
+    pub ball:Ball,
+    delta: f32,
+    last_frame_time: Instant
 }
 
 impl Game{
@@ -45,13 +47,15 @@ impl Game{
             canvas,
             event_pump,
             player,
-            ball, 
+            ball,
+            delta: 1.0,
+            last_frame_time: Instant::now()
         }
     }
     
-    pub fn update(&mut self){
-        self.player.update(&self.event_pump);    
-        self.ball.update(&mut self.player); 
+    pub fn update(&mut self, delta: f32){
+        self.player.update(delta, &self.event_pump);    
+        self.ball.update(delta, &mut self.player); 
     }
 
     pub fn draw(&mut self){
@@ -60,12 +64,11 @@ impl Game{
         self.player.draw(&mut self.canvas);
         self.ball.draw(&mut self.canvas);
         self.canvas.present();
-        std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));       
-
+        
     }
-
+    
     pub fn run(&mut self){
-     'running: loop {
+        'running: loop {
         for event in self.event_pump.poll_iter() {
             match event {
                 Event::Quit {..} |
@@ -75,7 +78,11 @@ impl Game{
                 _ => {}
             }
         }
-        self.update();
+        let now = Instant::now();
+        let elapsed = now.duration_since(self.last_frame_time);
+        self.delta = elapsed.as_secs_f32();
+        self.last_frame_time = Instant::now();
+        self.update(self.delta);
         self.draw();
 
      }

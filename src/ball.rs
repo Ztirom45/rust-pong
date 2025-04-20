@@ -14,8 +14,8 @@ impl Ball{
     pub fn new(rect_rel:FRect,color:Color)->Self{
         Self {
             body:Body::new_rel(rect_rel, color),
-            speed_x:-5.0,
-            speed_y:5.0,
+            speed_x:-BALL_SPEED,
+            speed_y:BALL_SPEED,
         }
 
     }
@@ -24,9 +24,9 @@ impl Ball{
         self.body.draw(canvas);
     }
 
-    pub fn update(&mut self,player:&mut Player){
-        self.body.rect.x += self.speed_x;
-        self.body.rect.y += self.speed_y;
+    pub fn update(&mut self, delta: f32, player:&mut Player){
+        self.body.rect.x += self.speed_x*delta;
+        self.body.rect.y += self.speed_y*delta;
         //screen edge collision
         if self.body.rect.x>=SCREEN_SIZE_W as f32 -self.body.rect.w as f32{
             self.speed_x=-self.speed_x;
