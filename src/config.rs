@@ -2,3 +2,4 @@ pub const SCREEN_SIZE_W:u32 = 800;
 pub const SCREEN_SIZE_H:u32 = 800;
 pub const BALL_HIT_PLAYER_ANGLE_INTENCITY:f32 = 20.0;
 pub const PLAYER_SPEED:f32 = 10.0;
+pub const PLAYER_LIVES:u8 = 3;

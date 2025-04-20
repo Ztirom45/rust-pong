@@ -14,12 +14,13 @@ mod player;
 mod config;
 mod body;
 mod ball;
+mod livebar;
 
 pub fn main() {
     let sdl_context = sdl3::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
 
-    let window = video_subsystem.window("rust-sdl3 demo", SCREEN_SIZE_W, SCREEN_SIZE_H)
+    let window = video_subsystem.window("rust-pong", SCREEN_SIZE_W, SCREEN_SIZE_H)
         .position_centered()
         .build()
         .unwrap();

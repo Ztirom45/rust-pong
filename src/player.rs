@@ -1,10 +1,12 @@
 use sdl3::{keyboard::Scancode, pixels::Color, render::{Canvas, FRect}, video::Window};
 use crate::config::*;
 use crate::body::*;
+use crate::livebar::*;
 
 pub struct Player{ 
     pub body:Body,
     pub speed:f32,
+    pub livebar:Livebar,
 }
 
 
@@ -13,12 +15,17 @@ impl Player{
         Self { 
             body:Body::new_rel(rect_rel, color),
             speed:PLAYER_SPEED,
+            livebar:Livebar{
+                lives:PLAYER_LIVES,
+                max_lives:PLAYER_LIVES,
+            },
         }
                 
     }
 
     pub fn draw(&mut self, canvas:&mut Canvas<Window>) {
         self.body.draw(canvas);
+        self.livebar.draw(canvas);
     }
 
     pub fn handle_events(&mut self,e: &sdl3::EventPump){

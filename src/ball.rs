@@ -36,6 +36,7 @@ impl Ball{
         }
         if self.body.rect.y>=SCREEN_SIZE_H as f32-self.body.rect.h as f32{
             self.speed_y=-self.speed_y;
+            player.livebar.lives-=1;
         }
         if self.body.rect.y<=0 as f32{
             self.speed_y=-self.speed_y;
