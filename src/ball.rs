@@ -43,9 +43,19 @@ impl Ball{
         }
         //player ball collision
         if self.body.get_rect().has_intersection(player.body.get_rect()){
-            self.speed_y=-self.speed_y;
-            self.speed_x*=(self.body.center().x-player.body.center().x).abs()*BALL_HIT_PLAYER_ANGLE_INTENCITY/SCREEN_SIZE_W as f32+0.5;
-            println!("touch");
+            let length = (self.speed_x.powi(2)+self.speed_y.powi(2)).sqrt();
+                
+            //backwart to the edge of the player rect
+            while self.body.get_rect().has_intersection(player.body.get_rect()){
+                self.body.rect.x-=self.speed_x/length;
+                self.body.rect.y-=self.speed_y/length;
+            }
+            self.speed_x=self.body.center().x-player.body.center().x;
+            self.speed_y=self.body.center().y-player.body.center().y;
+            let length_after = (self.speed_x.powi(2)+self.speed_y.powi(2)).sqrt();
+            self.speed_x*=length/length_after;
+            self.speed_y*=length/length_after;
+
         }
     }
 }

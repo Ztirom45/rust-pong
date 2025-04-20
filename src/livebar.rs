@@ -1,4 +1,4 @@
-use sdl3::{keyboard::Scancode, pixels::Color, render::{Canvas, FRect}, video::Window};
+use sdl3::{pixels::Color, render::{Canvas, FRect}, video::Window};
 use crate::config::*;
 
 pub struct Livebar{
