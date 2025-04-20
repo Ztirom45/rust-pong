@@ -12,7 +12,7 @@ impl Player{
     pub fn new(rect_rel:FRect,color:Color)->Self{
         Self { 
             body:Body::new_rel(rect_rel, color),
-            speed:5.0,
+            speed:PLAYER_SPEED,
         }
                 
     }
