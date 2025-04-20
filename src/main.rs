@@ -9,47 +9,17 @@ use std::time::Duration;
 
 use crate::player::*;
 use crate::config::*;
+use crate::game::*;
 
 mod player;
 mod config;
 mod body;
 mod ball;
 mod livebar;
+mod game;
 
 pub fn main() {
-    let sdl_context = sdl3::init().unwrap();
-    let video_subsystem = sdl_context.video().unwrap();
+    let mut game = Game::new();
+    game.run();
 
-    let window = video_subsystem.window("rust-pong", SCREEN_SIZE_W, SCREEN_SIZE_H)
-        .position_centered()
-        .build()
-        .unwrap();
-
-    let mut canvas = window.into_canvas();
-
-    let mut event_pump = sdl_context.event_pump().unwrap();
-
-    let mut player:Player = Player::new(FRect{x:0.42,y:0.9,w:0.16,h:0.05},Color::RGB(0xFF, 0xFF, 0xFF));
-    let mut ball:Ball = Ball::new(FRect{x:0.47,y:0.47,w:0.06,h:0.06},Color::RGB(0xFF, 0xFF, 0xFF));
-
-    'running: loop {
-        for event in event_pump.poll_iter() {
-            match event {
-                Event::Quit {..} |
-                Event::KeyDown { keycode: Some(Keycode::Escape), .. } => {
-                    break 'running
-                },
-                _ => {}
-            }
-        }
-        player.update(&event_pump);    
-        ball.update(&mut player);
-        canvas.set_draw_color(Color::RGB(0, 0, 0));
-        canvas.clear();
-    
-        player.draw(&mut canvas);
-        ball.draw(&mut canvas);
-        canvas.present();
-        std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
-    }
 }
