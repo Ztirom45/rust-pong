@@ -3,6 +3,7 @@ extern crate sdl3;
 use sdl3::pixels::Color;
 use sdl3::event::Event;
 use sdl3::keyboard::Keycode;
+use sdl3::render::FRect;
 use std::time::Duration;
 
 pub fn main() {
@@ -20,11 +21,7 @@ pub fn main() {
     canvas.clear();
     canvas.present();
     let mut event_pump = sdl_context.event_pump().unwrap();
-    let mut i = 0;
     'running: loop {
-        i = (i + 1) % 255;
-        canvas.set_draw_color(Color::RGB(i, 64, 255 - i));
-        canvas.clear();
         for event in event_pump.poll_iter() {
             match event {
                 Event::Quit {..} |
@@ -34,8 +31,11 @@ pub fn main() {
                 _ => {}
             }
         }
-        // The rest of the game loop goes here...
-
+        
+        canvas.set_draw_color(Color::RGB(0, 255, 255));
+        canvas.clear(); 
+        canvas.set_draw_color(Color::RGB(0, 255, 0));
+        canvas.fill_rect(FRect{x:0.0, y: 0.0, w: 200.0, h: 200.0 }).unwrap();
         canvas.present();
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }
