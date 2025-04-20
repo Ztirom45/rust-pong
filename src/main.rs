@@ -29,7 +29,7 @@ pub fn main() {
     let mut event_pump = sdl_context.event_pump().unwrap();
 
     let mut player:Player = Player::new(FRect{x:0.42,y:0.9,w:0.16,h:0.05},Color::RGB(255, 0, 0));
-    let mut ball:Ball = Ball::new(FRect{x:0.47,y:0.47,w:0.06,h:0.06},Color::RGB(0, 100, 100));
+    let mut ball:Ball = Ball::new(FRect{x:0.1,y:0.0,w:0.06,h:0.06},Color::RGB(0, 100, 100));
 
     'running: loop {
         for event in event_pump.poll_iter() {
