@@ -51,13 +51,12 @@ impl Game{
     
     pub fn update(&mut self){
         self.player.update(&self.event_pump);    
-        self.ball.update(&mut self.player);
-        self.canvas.set_draw_color(Color::RGB(0, 0, 0));
-        self.canvas.clear();
- 
+        self.ball.update(&mut self.player); 
     }
 
     pub fn draw(&mut self){
+        self.canvas.set_draw_color(Color::RGB(0, 0, 0));
+        self.canvas.clear();
         self.player.draw(&mut self.canvas);
         self.ball.draw(&mut self.canvas);
         self.canvas.present();
