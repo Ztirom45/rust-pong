@@ -34,5 +34,9 @@ impl Player{
             self.body.rect.x += self.speed;
         }
     }
+
+    pub fn update(&mut self,event_pump: &sdl3::EventPump){
+        self.handle_events(event_pump);
+    }
 }
 

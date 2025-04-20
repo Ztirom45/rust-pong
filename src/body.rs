@@ -1,4 +1,4 @@
-use sdl3::{pixels::Color, render::{Canvas, FRect}, video::Window};
+use sdl3::{pixels::Color, rect::Rect, render::{Canvas, FRect}, video::Window};
 use crate::config::*;
 
 pub struct Body{
@@ -24,6 +24,14 @@ impl Body {
     pub fn draw(&mut self, canvas:&mut Canvas<Window>){
         canvas.set_draw_color(self.color);
         canvas.fill_rect(self.rect).unwrap();
+    }
+    pub fn get_rect(&mut self)->Rect{
+        Rect::new(
+            self.rect.x as i32,
+            self.rect.y as i32,
+            self.rect.w as u32,
+            self.rect.h as u32
+        )
     }
 
 }

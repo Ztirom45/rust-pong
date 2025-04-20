@@ -42,7 +42,7 @@ pub fn main() {
             }
         }
         player.handle_events(&event_pump);    
-        ball.update();
+        ball.update(&mut player);
         canvas.set_draw_color(Color::RGB(0, 255, 255));
         canvas.clear();
     

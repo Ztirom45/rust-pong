@@ -1,6 +1,7 @@
-use sdl3::{pixels::Color, render::{Canvas, FRect}, video::Window};
+use sdl3::{pixels::Color, rect::Rect, render::{Canvas, FRect}, video::Window};
 use crate::config::*;
 use crate::body::*;
+use crate::player::*;
 
 pub struct Ball{ 
     pub body:Body,
@@ -22,7 +23,7 @@ impl Ball{
         self.body.draw(canvas);
     }
 
-    pub fn update(&mut self){
+    pub fn update(&mut self,player:&mut Player){
         self.body.rect.x += self.speed_x;
         self.body.rect.y += self.speed_y;
         //screen edge collision
@@ -38,8 +39,10 @@ impl Ball{
         if self.body.rect.y<=0 as f32{
             self.speed_y=-self.speed_y;
         }
-
-        
+        //player ball collision
+        if self.body.get_rect().has_intersection(player.body.get_rect()){
+            println!("touch");
+        }
     }
 }
 
