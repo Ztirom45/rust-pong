@@ -3,7 +3,8 @@ use crate::config::*;
 use crate::body::*;
 use crate::player::*;
 
-pub struct Ball{ 
+
+pub struct Ball{
     pub body:Body,
     pub speed_x:f32,
     pub speed_y:f32,
@@ -11,12 +12,12 @@ pub struct Ball{
 
 impl Ball{
     pub fn new(rect_rel:FRect,color:Color)->Self{
-        Self { 
+        Self {
             body:Body::new_rel(rect_rel, color),
             speed_x:-5.0,
             speed_y:5.0,
         }
-                
+
     }
 
     pub fn draw(&mut self, canvas:&mut Canvas<Window>) {
@@ -41,8 +42,9 @@ impl Ball{
         }
         //player ball collision
         if self.body.get_rect().has_intersection(player.body.get_rect()){
+            self.speed_y=-self.speed_y;
+            self.speed_x*=(self.body.center().x-player.body.center().x).abs()*10.0/SCREEN_SIZE_W as f32+0.5;
             println!("touch");
         }
     }
 }
-

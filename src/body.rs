@@ -1,4 +1,4 @@
-use sdl3::{pixels::Color, rect::Rect, render::{Canvas, FRect}, video::Window};
+use sdl3::{pixels::Color, rect::Rect, render::{Canvas, FRect, FPoint}, video::Window};
 use crate::config::*;
 
 pub struct Body{
@@ -32,6 +32,10 @@ impl Body {
             self.rect.w as u32,
             self.rect.h as u32
         )
+    }
+
+    pub fn center(&self) -> FPoint {
+        FPoint::new(self.rect.x+self.rect.w/2.0,self.rect.y+self.rect.h/2.0)
     }
 
 }
