@@ -7,7 +7,8 @@ use sdl3::video::Window;
 use sdl3::EventPump;
 use sdl3::Sdl;
 use sdl3::VideoSubsystem;
-use std::time::{Duration, Instant};
+use std::collections::HashMap;
+use std::time::Instant;
 
 use crate::player::*;
 use crate::config::*;
@@ -37,7 +38,7 @@ impl Game{
         let canvas = window.into_canvas();
 
         let event_pump = sdl_context.event_pump().unwrap();
-
+        
         let player:Player = Player::new(FRect{x:0.42,y:0.9,w:0.16,h:0.05},Color::RGB(0xFF, 0xFF, 0xFF));
         let ball:Ball = Ball::new(FRect{x:0.47,y:0.47,w:0.06,h:0.06},Color::RGB(0xFF, 0xFF, 0xFF));
 
@@ -52,7 +53,8 @@ impl Game{
             last_frame_time: Instant::now()
         }
     }
-    
+     
+
     pub fn update(&mut self, delta: f32){
         self.player.update(delta, &self.event_pump);    
         self.ball.update(delta, &mut self.player); 

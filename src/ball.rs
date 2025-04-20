@@ -1,4 +1,4 @@
-use sdl3::{pixels::Color, rect::Rect, render::{Canvas, FRect}, video::Window};
+use sdl3::{pixels::Color, render::{Canvas, FRect}, video::Window};
 use crate::config::*;
 use crate::body::*;
 use crate::player::*;
